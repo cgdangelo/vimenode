@@ -1,15 +1,29 @@
 {
   "name": "vimenode",
-  "version": "0.0.0",
-  "description": "",
-  "main": "vimenode.js",
+  "version": "0.0.1",
+  "description": "Vimeo API wrapper",
+  "keywords": ["vimeo", "api"],
+  "main": "lib/vimenode.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "coffee -b -c -j -o lib src",
+    "clean": "rm -f lib/*.js",
+    "prepublish": "npm run build",
+    "postpublish": "npm run clean"
   },
-  "author": "Charles D'Angelo <c.g.dangelo@gmail.com>",
+  "author": {
+    "name": "Charles D'Angelo",
+    "email": "c.g.dangelo@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cgdangelo/vimenode.js.git"
+  },
   "license": "BSD-2-Clause",
   "dependencies": {
     "string": "*",
     "request": "*"
+  },
+  "devDependencies": {
+    "coffee-script": "*"
   }
 }
