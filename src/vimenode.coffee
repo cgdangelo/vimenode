@@ -11,60 +11,11 @@ sendRequest = (routeParams, callback) ->
     callback
   )
 
-user =
-  info: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'info'
-      callback
-
-  videos: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'videos'
-      callback
-
-  likes: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'likes'
-      callback
-
-  appears_in: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'appears_in'
-      callback
-
-  all_videos: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'all_videos'
-      callback
-
-  subscriptions: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'subscriptions'
-      callback
-
-  albums: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'albums'
-      callback
-
-  channels: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'channels'
-      callback
-
-  groups: (username, callback) ->
-    sendRequest
-      resource: 'username'
-      method: 'groups'
-      callback
+user = (method, username, callback) ->
+  sendRequest
+    resource: username
+    method: method,
+    callback
 
 video = (video_id, callback) ->
   sendRequest
