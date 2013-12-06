@@ -52,5 +52,16 @@ simple =
       page: page,
       callback
 
+  channel: (method, channelname, page, callback) ->
+    if typeof page isnt 'number' and typeof page is 'function'
+      callback = page
+      page = 1
+
+    sendRequest
+      resource: 'channel/' + channelname
+      method: method
+      page: page,
+      callback
+
 module.exports =
   simple: simple
