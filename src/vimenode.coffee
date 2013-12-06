@@ -2,90 +2,76 @@ http = require 'http'
 str = require 'string'
 req = require 'request'
 
-vimeoOptions =
-  endpoint: 'http://vimeo.com/api/v2/{{username}}/{{method}}.{{format}}'
-  responseFormats:
-    JSON: 'json'
-    JSONP: 'jsonp'
-    XML: 'xml'
+endpoints =
+  simple: 'http://vimeo.com/api/v2/{{resource}}/{{method}}.json'
 
 sendRequest = (routeParams, callback) ->
   req(
-    str(vimeoOptions.endpoint).template(routeParams).s,
+    str(endpoints.simple).template(routeParams).s,
     callback
   )
 
-vimenode =
-  info: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+user =
+  info: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'info'
-      format: format,
-
       callback
 
-  videos: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  videos: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'videos'
-      format: format,
-
       callback
 
-  likes: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  likes: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'likes'
-      format: format,
-
       callback
 
-  appears_in: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  appears_in: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'appears_in'
-      format: format,
-
       callback
 
-  all_videos: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  all_videos: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'all_videos'
-      format: format,
-
       callback
 
-  subscriptions: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  subscriptions: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'subscriptions'
-      format: format,
-
       callback
 
-  albums: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  albums: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'albums'
-      format: format,
-
       callback
 
-  channels: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  channels: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'channels'
-      format: format,
-
       callback
 
-  groups: (username, callback, format = vimeoOptions.responseFormats.JSON) ->
+  groups: (username, callback) ->
     sendRequest
-      username: username
+      resource: 'username'
       method: 'groups'
-      format: format,
-
       callback
 
-module.exports = vimenode
+video = (video_id, callback) ->
+  sendRequest
+    resource: 'video'
+    method: video_id,
+    callback
+
+module.exports =
+  user: user
+  video: video
