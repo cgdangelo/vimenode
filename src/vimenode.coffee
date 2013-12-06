@@ -23,6 +23,13 @@ video = (video_id, callback) ->
     method: video_id,
     callback
 
+activity = (method, username, callback) ->
+  sendRequest
+    resource: 'activity/' + username
+    method: method,
+    callback
+
 module.exports =
   user: user
   video: video
+  activity: activity
