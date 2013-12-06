@@ -1,15 +1,9 @@
 {
   "name": "vimenode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vimeo API wrapper",
   "keywords": ["vimeo", "api"],
   "main": "lib/vimenode.js",
-  "scripts": {
-    "build": "coffee -b -c -j -o lib src",
-    "clean": "rm -f lib/*.js",
-    "prepublish": "npm run build",
-    "postpublish": "npm run clean"
-  },
   "author": {
     "name": "Charles D'Angelo",
     "email": "c.g.dangelo@gmail.com"
