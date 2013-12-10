@@ -7,6 +7,11 @@ endpoints =
 
 sendRequest = (routeParams, callback) ->
   routeParams.page ?= 1
+
+  if typeof routeParams.page is 'function'
+    callback = routeParams.page
+    routeParams.page = 1
+
   req(
     str(endpoints.simple).template(routeParams).s,
     callback
@@ -14,10 +19,6 @@ sendRequest = (routeParams, callback) ->
 
 simple =
   user: (method, username, page, callback) ->
-    if typeof page isnt 'number' and typeof page is 'function'
-      callback = page
-      page = 1
-
     sendRequest
       resource: username
       method: method
@@ -32,20 +33,12 @@ simple =
       callback
 
   activity: (method, username, page, callback) ->
-    if typeof page isnt 'number' and typeof page is 'function'
-      callback = page
-      page = 1
-
     sendRequest
       resource: 'activity/' + username
       method: method,
       callback
 
   group: (method, groupname, page, callback) ->
-    if typeof page isnt 'number' and typeof page is 'function'
-      callback = page
-      page = 1
-
     sendRequest
       resource: 'group/' + groupname
       method: method
@@ -53,10 +46,6 @@ simple =
       callback
 
   channel: (method, channelname, page, callback) ->
-    if typeof page isnt 'number' and typeof page is 'function'
-      callback = page
-      page = 1
-
     sendRequest
       resource: 'channel/' + channelname
       method: method
@@ -64,10 +53,6 @@ simple =
       callback
 
   album: (method, album_id, page, callback) ->
-    if typeof page isnt 'number' and typeof page is 'function'
-      callback = page
-      page = 1
-
     sendRequest
       resource: 'album/' + album_id
       method: method
