@@ -15,7 +15,8 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "string": "*",
-    "request": "*"
+    "request": "*",
+    "oauth": "*"
   },
   "devDependencies": {
     "coffee-script": "*"
