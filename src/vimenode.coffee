@@ -15,7 +15,8 @@ simple =
 
     req(
       str(endpoints.simple).template(routeParams).s,
-      callback
+      (err, res, body) ->
+        callback JSON.parse(body)
     )
 
   user: (method, username, page, callback) ->
