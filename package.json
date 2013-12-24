@@ -1,6 +1,6 @@
 {
   "name": "vimenode",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Vimeo API wrapper",
   "keywords": ["vimeo", "api"],
   "main": "lib/vimenode.js",
