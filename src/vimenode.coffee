@@ -36,7 +36,8 @@ simple =
   activity: (method, username, page, callback) ->
     @sendRequest
       resource: 'activity/' + username
-      method: method,
+      method: method
+      page: page,
       callback
 
   group: (method, groupname, page, callback) ->
