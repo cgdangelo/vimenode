@@ -29,27 +29,39 @@ Each request type supported by the [Simple API](https://developer.vimeo.com/apis
 
 ##### User Requests
 
-    vimenode.user(username, method, page, callback)
+    vimenode.user(method, params, callback)
+
+`params` must have a `username` key.
 
 ##### Video Requests
 
-    vimenode.video(video_id, callback)
+    vimenode.video(params, callback)
+
+`params` must have a `video_id` key.
 
 ##### Activity Requests
 
-    vimenode.activity(method, username, page, callback)
+    vimenode.activity(method, params, callback)
+
+`params` must have a `username` key.
 
 ##### Group Requests
 
-    vimenode.group(method, groupname, page, callback)
+    vimenode.group(method, params, callback)
+
+`params` must have a `groupname` key.
 
 ##### Channel Requests
 
-    vimenode.channel(method, channelname, page, callback)
+    vimenode.channel(method, params, callback)
+
+`params` must have a `channelname` key.
 
 ##### Album Requests
 
-    vimenode.album(method, albumn_id, page, callback)
+    vimenode.album(method, params, callback)
+
+`params` must have a `album_id` key.
 
 #### Advanced
 
@@ -62,7 +74,7 @@ Each request type supported by the [Simple API](https://developer.vimeo.com/apis
     var v = require('vimenode').simple;
 
     var video_ids = [];
-    v.user('all_videos', 'username', function(videos) {
+    v.user('all_videos', { username: 'username' }, function(videos) {
       videos.forEach(function(video) {
         video_ids.push(video.id);
       });
@@ -74,10 +86,10 @@ Each request type supported by the [Simple API](https://developer.vimeo.com/apis
 
     var v = require('vimenode').simple;
 
-    v.activity('user_did', 'username', function(activities) {
+    v.activity('user_did', { username: 'username' }, function(activities) {
       activities.forEach(function(activity) {
         if (activity.type === 'follow_user') {
-          return v.user('info', activity.subject_id, function(user_info) {
+          return v.user('info', { username: activity.subject_id }, function(user_info) {
             console.log(user_info);
           });
         }
