@@ -5,6 +5,7 @@ qs = require 'querystring'
 
 class Simple
   endpoint: 'http://vimeo.com/api/v2/{{resource}}/{{method}}.json?page={{page}}'
+
   resources:
     user:
       resource: '{{id}}'
@@ -30,7 +31,7 @@ class Simple
       @[request_type] = @createFunction(request_type)
 
   createFunction: (resource) ->
-    @[resource] = (method, id, page, cb) ->
+    (method, id, page, cb) ->
       if resource is 'video'
         cb = page
         page = id
