@@ -49,53 +49,53 @@ class Simple
       req(
         str(ep).template(params).s,
         (err, res, body) ->
-          cb JSON.parse body
+          return if err then err else cb JSON.parse body
       )
 
-endpoints =
-  advanced:
+class Advanced
+  endpoints:
     access: 'http://vimeo.com/oauth/access_token'
     api: 'http://vimeo.com/api/rest/v2?method=vimeo.{{resource}}.{{method}}&{{params}}'
     redirect: 'http://vimeo.com/oauth/authorize'
     request: 'http://vimeo.com/oauth/request_token'
 
-class Advanced
-  constructor: (@oauth) ->
+  resources: ['activity', 'albums', 'categories', 'channels', 'contacts',
+              'groups', 'groups.forums', 'oauth', 'people', 'test', 'videos',
+              'videos.comments', 'videos.embed', 'videos.upload']
 
-  sendRequest: (routeParams, callback) ->
-    routeParams.params = qs.stringify routeParams.params
-    routeParams.format ?= 'json'
-    routeParams.page ?= 1
-
-    if typeof routeParams.page is 'function'
-      callback = routeParams.page
-      routeParams.page = 1
-
-    @oauth.get(
-      str(endpoints.advanced.api).template(routeParams).s,
-      @oauth.token,
-      @oauth.secret,
-      callback
-    )
-
-  activity: (method, params, callback) ->
-    routeParams =
-      resource: 'activity'
-      method: method
-      params: params
-
-    @sendRequest routeParams, callback
-
-module.exports =
-  simple: new Simple
-
-  advanced: (consumer_key, consumer_secret) ->
-    new Advanced new oa(
-      endpoints.advanced.request,
-      endpoints.advanced.access,
+  constructor: (consumer_key, consumer_secret) ->
+    @consumer = new oa(
+      @endpoints.request,
+      @endpoints.access,
       consumer_key,
       consumer_secret,
       '1.0',
       null,
       'HMAC-SHA1'
     )
+
+    for request_type in @resources
+      @[request_type] = @createFunction(request_type)
+
+  createFunction: (resource) ->
+    (method, params, cb) ->
+      params.format ?= 'json'
+      params.page ?= 1
+
+      routeParams =
+        method: method
+        resource: resource
+        params: qs.stringify params
+
+      @consumer.get(
+        str(@endpoints.api).template(routeParams).s,
+        @consumer.token,
+        @consumer.secret,
+        (err, body, res) ->
+          return if err then err else cb JSON.parse body
+      )
+
+module.exports =
+  simple: new Simple
+
+  advanced: (consumer_key, consumer_secret) -> new Advanced consumer_key, consumer_secret
