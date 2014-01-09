@@ -29,39 +29,27 @@ Each request type supported by the [Simple API](https://developer.vimeo.com/apis
 
 ##### User Requests
 
-    vimenode.user(method, params, callback)
-
-`params` must have a `username` key.
+    vimenode.user(method, username, page, callback)
 
 ##### Video Requests
 
-    vimenode.video(params, callback)
-
-`params` must have a `video_id` key.
+    vimenode.video(video_id, callback)
 
 ##### Activity Requests
 
-    vimenode.activity(method, params, callback)
-
-`params` must have a `username` key.
+    vimenode.activity(method, username, page, callback)
 
 ##### Group Requests
 
-    vimenode.group(method, params, callback)
-
-`params` must have a `groupname` key.
+    vimenode.group(method, groupname, page, callback)
 
 ##### Channel Requests
 
-    vimenode.channel(method, params, callback)
-
-`params` must have a `channelname` key.
+    vimenode.channel(method, channelname, page, callback)
 
 ##### Album Requests
 
-    vimenode.album(method, params, callback)
-
-`params` must have a `album_id` key.
+    vimenode.album(method, album_id, page, callback)
 
 #### Advanced
 

@@ -4,40 +4,44 @@ oa = require('OAuth').OAuth
 qs = require 'querystring'
 
 class Simple
-  endpoint: 'http://vimeo.com/api/v2/{{resource}}/{{method}}.json'
+  endpoint: 'http://vimeo.com/api/v2/{{resource}}/{{method}}.json?page={{page}}'
   resources:
     user:
-      resource: '{{username}}'
+      resource: '{{id}}'
 
     video:
       resource: 'video'
-      method: '{{video_id}}'
+      method: '{{id}}'
 
     activity:
-      resource: 'activity/{{username}}'
+      resource: 'activity/{{id}}'
 
     group:
-      resource: 'group/{{groupname}}'
+      resource: 'group/{{id}}'
 
     channel:
-      resource: 'channel/{{channelname}}'
+      resource: 'channel/{{id}}'
 
     album:
-      resource: 'album/{{album_id}}'
+      resource: 'album/{{id}}'
 
   constructor: ->
     for request_type, request_config of @resources
       @[request_type] = @createFunction(request_type)
 
   createFunction: (resource) ->
-    @[resource] = (method, params, cb) ->
-      if typeof method is 'object'
-        cb = params
-        params = method
+    @[resource] = (method, id, page, cb) ->
+      if resource is 'video'
+        cb = page
+        page = id
+        id = method
         method = ''
 
-      params.method = method
-      params.page ?= 1
+      if typeof page is 'function'
+        cb = page
+        page = 1
+
+      params = id: id, method: method, page: page
 
       ep = str(@endpoint).template(@resources[resource]).s
 
