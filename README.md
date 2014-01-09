@@ -62,7 +62,7 @@ Each request type supported by the [Simple API](https://developer.vimeo.com/apis
     var v = require('vimenode').simple;
 
     var video_ids = [];
-    v.user('all_videos', { username: 'username' }, function(videos) {
+    v.user('all_videos', 'username', function(videos) {
       videos.forEach(function(video) {
         video_ids.push(video.id);
       });
@@ -74,10 +74,10 @@ Each request type supported by the [Simple API](https://developer.vimeo.com/apis
 
     var v = require('vimenode').simple;
 
-    v.activity('user_did', { username: 'username' }, function(activities) {
+    v.activity('user_did', 'username', function(activities) {
       activities.forEach(function(activity) {
         if (activity.type === 'follow_user') {
-          return v.user('info', { username: activity.subject_id }, function(user_info) {
+          return v.user('info', 'username', function(user_info) {
             console.log(user_info);
           });
         }
