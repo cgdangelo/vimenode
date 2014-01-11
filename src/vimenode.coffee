@@ -49,7 +49,7 @@ class Simple
       req(
         str(ep).template(params).s,
         (err, res, body) ->
-          return if err then err else cb JSON.parse body
+          cb if err then err else JSON.parse body
       )
 
 class Advanced
@@ -92,7 +92,7 @@ class Advanced
         @consumer.token,
         @consumer.secret,
         (err, body, res) ->
-          return if err then err else cb JSON.parse body
+          cb if err then err else JSON.parse body
       )
 
 module.exports =
