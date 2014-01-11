@@ -54,10 +54,10 @@ class Simple
 
 class Advanced
   endpoints:
-    access: 'http://vimeo.com/oauth/access_token'
-    api: 'http://vimeo.com/api/rest/v2?method=vimeo.{{resource}}.{{method}}&{{params}}'
-    redirect: 'http://vimeo.com/oauth/authorize'
-    request: 'http://vimeo.com/oauth/request_token'
+    access: 'https://vimeo.com/oauth/access_token'
+    api: 'https://vimeo.com/api/rest/v2?method=vimeo.{{resource}}.{{method}}&{{params}}'
+    redirect: 'https://vimeo.com/oauth/authorize?oauth_token={{token}}&permission={{permission}}'
+    request: 'https://vimeo.com/oauth/request_token'
 
   resources: ['activity', 'albums', 'categories', 'channels', 'contacts',
               'groups', 'groups.forums', 'oauth', 'people', 'test', 'videos',
