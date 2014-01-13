@@ -95,6 +95,16 @@ class Advanced
           cb if err then err else JSON.parse body
       )
 
+  getRequestToken: (callback_url, cb, permission = 'read') ->
+    @consumer.getOAuthRequestToken oauth_callback: callback_url, (err, token, secret, qs) =>
+      cb(
+        if err
+          err
+        else
+          url: str(@endpoints.redirect).template(token: token, permission: permission).s
+          secret: secret
+      )
+
 module.exports =
   simple: new Simple
 
